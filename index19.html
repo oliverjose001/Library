@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+
+    *{padding: 0;
+    margin: 0;
+  box-sizing: border-box;}
+
+  body{
+    background-color: rgb(248, 240, 129);
+    min-height: 100vh;
+  }
+  .head{
+    text-align: center;
+    padding-top:20px ;
+     
+  }.head:hover{
+    color: rgb(201, 82, 82);
+    transition: 1.2s;
+   }#box{
+    margin-left: 40%;
+    padding-top: 10px;
+  }#box input{
+    padding: 10px;
+    border-radius: 20px;
+  }#box input:hover{
+    color: white;
+    background-color: rgb(81, 77, 77);
+    transition: 0.51s;
+
+  }
+  
+  #input6{
+    height: 100px;
+    width: 300px;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: rgb(203, 199, 199);
+    color: black;
+  }#btn{
+    margin-left: 48%;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border-radius:20px;
+    font-size: larger;
+  }#btn:hover{
+    background-color: black;
+    color: white;
+    transition: 1s;
+  }#op {
+    margin-left: 41%;
+    padding: 10px;
+   
+  }
+
+  </style>
+</head>
+<body>
+
+  <!-- My Library Collection is a simple web app where users can add books with details like title, author, genre, year, format, and review. 
+  Each entry is displayed as a card with a delete option for easy management. -->
+
+  <h1 class="head"> My Library Collection 📚</h1>
+
+  <div class="form">
+        <form  id="box"></form>
+   
+<label>Book Name : 
+  <input type="text" id="input1" placeholder="Enter the Book Name">
+</label><br><br>
+
+<label>Author Name : 
+  <input type="text" id="input2" placeholder="Enter the Author Name">
+</label><br><br>
+
+<label>Genre/Category : 
+  <input type="text" id="input3" placeholder="Enter the Genre/Category">
+</label><br><br>
+
+<label>Publication Year : 
+  <input type="text" id="input4" placeholder="Enter the Publication Year">
+</label><br><br>
+
+<label>Book Format  :       
+  <input type="radio" class="input5" name="book" value="Book"> Book
+  <input type="radio" class="input5" name="book" value="ebook"> ebook
+  <input type="radio" class="input5" name="book" value="Audiobook"> Audiobook
+ </label><br><br>
+
+<label> Review : <br>
+  <textarea id="input6" placeholder="Enter the Review" ></textarea>
+</label><br><br>
+
+ </form>
+
+<button id="btn">submit</button>
+
+</div><br><br>
+
+   <div id="op"></div>
+
+  <script>
+
+
+    let input1 =document.getElementById("input1") 
+    let input2 =document.getElementById("input2") 
+    let input3 =document.getElementById("input3") 
+    let input4 =document.getElementById("input4") 
+    let input5 =document.getElementsByClassName("input5") 
+    let input6 =document.getElementById("input6") 
+    let btn =document.getElementById("btn") 
+    let op =document.getElementById("op") 
+
+    class Book{   
+      constructor(name= "Name" ,author="Author",genre= "undefined",year= 1111 ,format="N/A",review="not typed anything"){  
+        this.name=name;
+        this.author=author;
+        this.genre=genre;
+        this.year=year;
+        this.format=format;
+        this.review=review
+      }
+
+      details(){
+            
+        let{name,author,genre,year,format,review}=this
+        return `📖 Book Name : ${name} <br>
+         👤Author Name :  ${author} <br> 
+         Genre/Category :  ${genre} <br> 
+         Publication Year : ${year}  <br>      
+         Book Format  : ${format}  <br> 
+         Review : ${review} ` 
+      }
+    }
+
+    btn.addEventListener("click",()=>{
+      let name=input1.value.trim()
+      let author=input2.value.trim()
+      let genre=input3.value.trim()
+      let year=Number(input4.value)
+
+      let format="N/A"  //radio button
+      for(let i of input5){
+        if(i.checked){
+          format=i.value
+        }
+      }
+       let review=input6.value
+
+      let books= new Book(name ||undefined,author ||undefined ,genre ||undefined ,year  ||undefined ,format  ||undefined,review ||undefined  )
+
+      // creat a box for output
+    let boxcard = document.createElement("div");
+    boxcard.style.border = "1px solid black";
+    boxcard.style.borderRadius="20px"
+    boxcard.style.padding = "10px";
+    boxcard.style.marginBottom = "10px";
+    boxcard.style.width = "300px";
+    boxcard.style.backgroundColor = "lightgreen";
+
+    boxcard.innerHTML = books.details();//call the values
+
+       // creat delete button
+    let delbtn = document.createElement("button");
+    delbtn.textContent = "Delete";
+    delbtn.style.marginTop = "10px";
+    delbtn.style.display = "block";
+    delbtn.addEventListener("click", () => {
+      boxcard.remove();
+    });
+    
+    
+    boxcard.appendChild(delbtn);
+    op.appendChild(boxcard);
+    })
+
+  </script> 
+</body>
+</html>

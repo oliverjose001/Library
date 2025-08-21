@@ -69,7 +69,7 @@
   <h1 class="head"> My Library Collection 📚</h1>
 
   <div class="form">
-        <form  id="box"></form>
+        <form  id="box">
    
 <label>Book Name : 
   <input type="text" id="input1" placeholder="Enter the Book Name">
@@ -183,3 +183,4 @@
   </script> 
 </body>
 </html>
+

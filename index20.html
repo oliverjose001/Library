@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    *{
+      padding: 0%;
+      margin: 0%;
+      box-sizing: border-box;
+    }
+
+    body{
+     background: linear-gradient(330deg , rgb(212, 243, 255),rgb(187, 254, 244), rgb(212, 243, 255),rgb(187, 254, 244), rgb(212, 243, 255),rgb(187, 254, 244));
+     min-height: 100vh;
+    }
+    .head{
+      margin-top: 20px;
+      margin-left: 30%;
+      margin-bottom: 10px;
+    }
+    .name ,.tam,.eng,.mat,.sci,.soc,#btn{
+      margin-left: 36%;
+      font-size: 22px;
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+     .mark input,#name {
+       height: 30px;
+       width:200px;
+       font-size: large;
+       padding: 10px;
+       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+       cursor: pointer;
+      
+    }
+    #name{
+      margin-left: 12px;
+    }
+    .tam input{
+      margin-left: 18px;
+    }.eng input{
+      margin-left: 5px;
+    }.mat input{
+      margin-left: 11.8px;
+    }.soc input{
+      margin-left: 17.5px;
+    }
+    #btn{
+      margin-left: 45%;
+      border-radius: 10%;
+      padding: 5px;
+      cursor: pointer;
+    }#op{
+      margin-left: 50px;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <h1 class="head">STUDENT MARK SHEET PORTAL 📑</h1>                                         
+
+  <label class="name">
+    Name : <input type="text" id="name" placeholder="eg : Mugesh K">                           
+  </label><br><br>
+
+  <div class="mark">
+  
+  <label class="tam">
+    Tamil : <input type="text" id="tamil" placeholder="mark / 100">                               
+  </label><br><br>
+
+  <label class="eng">
+    English : <input type="text" id="english"  placeholder="mark / 100">                         
+  </label><br><br>
+  
+  <label class="mat">
+    Maths : <input type="text" id="maths"  placeholder="mark / 100">                              
+  </label><br><br>
+  
+  <label class="sci">
+    Science : <input type="text" id="science"  placeholder="mark / 100">                         
+  </label><br><br>
+  
+  <label class="soc">
+    Social : <input type="text" id="social"  placeholder="mark / 100">                           
+  </label><br><br>
+
+  </div>
+
+
+    <button id="btn">submit</button><br><br>
+
+    <hr style="border: 2px dotted black;">
+
+    <p id="op"></p>
+
+    <script>
+
+      let input1=document.getElementById("name")    
+      let input2=document.getElementById("tamil")   
+      let input3=document.getElementById("english") 
+      let input4=document.getElementById("maths")   
+      let input5=document.getElementById("science") 
+      let input6=document.getElementById("social")  
+      let btn=document.getElementById("btn")        
+      let op=document.getElementById("op")          
+
+       
+
+      class Student{
+        constructor(name="❗User did'nt give the name",tamil="0",english="0",maths="0",science="0",social="0"){
+          this.name=name;
+          this.tamil=tamil;
+          this.english=english;
+          this.maths=maths;
+          this.science=science;
+          this.social=social;
+        }
+
+        greet(){
+          let{name,tamil,english,maths,science,social}=this
+          return `
+          Student Name : ${name} <br><br>
+          Marks :- (pass mark 35 / 100 || 175 / 500) <br><br>
+          Tamil : ${tamil} <br>
+          English : ${english} <br> 
+          Maths : ${maths} <br>
+          Science : ${science} <br>
+          Social : ${social}`
+        }
+
+        add(){  // to find the total and pass or fail
+          let{tamil,english,maths,science,social}=this
+          let total=tamil+english+maths+science+social;
+          let value="" 
+          if(tamil>=35 && english>=35 && maths>=35 &&science>=35 &&social>=35 ){
+            value= `<b style="color:green;"> pass </b> `
+          }else{
+            value=`<b style="color:red;"> fail </b> `
+          }
+
+          
+           return `<br><br>Total Marks : ${total} / 500 <br>Result : ${value}  `;
+        
+      }
+    }
+
+      
+      btn.addEventListener("click",()=>{
+        let name= input1.value.toUpperCase();
+        let tamil =Number (input2.value);
+        let english=Number(input3.value);
+        let maths =Number(input4.value);
+        let science=Number(input5.value);
+        let social=Number(input6.value);
+
+        let dummy=new Student(name||undefined,tamil||undefined,english||undefined,maths||undefined,science||undefined,social||undefined)
+
+
+           // seprate box for student mark
+        let box=document.createElement('div')
+
+        box.style.width="400px"
+        box.style.backgroundColor="white"
+        box.style.border=" 1px solid black"
+        box.style.borderRadius="10px"
+        box.style.marginBottom="20px"
+        box.style.padding="20px"
+        box.style.marginTop="20px"
+        box.style.display="inline-block"
+        box.style.margin="20px"
+
+        box.innerHTML=dummy.greet() + dummy.add()
+
+
+          // delete button => delite the seprate box
+        let del =document.createElement("button")
+
+        del.style.backgroundColor="rgb(245, 50, 0)"
+        del.style.marginLeft="50%"
+        del.style.padding="6px"
+
+        del.textContent="Delete"
+        del.addEventListener("click",()=>{
+         box.remove()
+        })
+
+
+        
+        op.appendChild(box)
+        box.appendChild(del)
+
+        input1.value=""
+        input2.value=""
+        input3.value=""
+        input4.value=""
+        input5.value=""
+        input6.value=""
+
+        
+      })
+
+    </script>
+</body>
+</html>
